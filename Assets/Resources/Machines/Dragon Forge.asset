@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0286c22c5509fa4b97f649fd5bbc989, type: 3}
+  m_Name: Dragon Forge
+  m_EditorClassIdentifier: 
+  RecipesDataContainer:
+  - {fileID: 11400000, guid: e53ce337adee3924cab3a3df732934dd, type: 2}
+  - {fileID: 11400000, guid: 4b7e4f38ea7a6074abd051f3d5f7b2ce, type: 2}
+  UnlockedByQuest: 2
