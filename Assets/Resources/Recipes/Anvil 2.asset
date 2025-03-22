@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c053caeb6690e624a92fb9544759a148, type: 3}
+  m_Name: Anvil 2
+  m_EditorClassIdentifier: 
+  Time: 5
+  SuccessRate: 0.85
+  Ingredients:
+  - {fileID: 11400000, guid: c2f696e89c3a42949bd7950d035bc63a, type: 2}
+  - {fileID: 11400000, guid: 86aa341aab7278244b3619cc16607f7b, type: 2}
+  Output: {fileID: 11400000, guid: 5c2a535d1056f2743ab7d4c7b6b92626, type: 2}

@@ -1,18 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class InventoryController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public event Action<ItemState> OnItemStateChanged;
+
+    [SerializeField] private string _itemsPath;
+    [SerializeField] private string _startingItemsPath;
+
+    private Dictionary<int, ItemState> _inventoryState = new();
+    private UiInventoryScreen _uiScreen;
+    private ItemData[] _itemsData;
+
+    private void Awake()
     {
-        
+        _itemsData = Resources.LoadAll<ItemDataContainer>(_itemsPath)
+            .Select(c => c.ItemData)
+            .OrderBy(item => item.Id)
+            .ToArray();
+
+        InitStartInventory();
+
+        _uiScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Inventory) as UiInventoryScreen;
+        _uiScreen.Setup(this);
+
+        UpdateWholeInventory();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitStartInventory()
     {
-        
+        var startInventoryContainer = Resources.Load<StartingInventoryContainer>(_startingItemsPath);
+        foreach (StartItemData startItemData in startInventoryContainer.StartItemsData)
+        {
+            int amount = Random.Range(1, 100) <= startItemData.Chance * 100 ? Random.Range(startItemData.Min, startItemData.Max) : 0;
+            int id = startItemData.ItemDataContainer.ItemData.Id;
+
+            if (_inventoryState.ContainsKey(id) == false && amount > 0)
+            {
+                _inventoryState.Add(id, new ItemState() { Id = id, Amount = amount });
+            }
+        }
+    }
+
+    private void UpdateWholeInventory()
+    {
+        foreach (var kvp in _inventoryState)
+        {
+            CallOnItemStateChanged(kvp.Value);
+        }
+    }
+
+    public void CallOnItemStateChanged(ItemState itemState)
+    {
+        OnItemStateChanged?.Invoke(itemState);
+    }
+
+    public ItemData GetItemData(int id)
+    {
+        return _itemsData.FirstOrDefault(item => item.Id == id);
     }
 }

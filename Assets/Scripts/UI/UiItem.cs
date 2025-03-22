@@ -11,6 +11,11 @@ public class UiItem : MonoBehaviour
 
     public void Setup(ItemData data)
     {
+        _image.sprite = data.Sprite;
+    }
 
+    public void UpdateState(ItemState state)
+    {
+        _amountText.text = state.Amount.ToString();
     }
 }
