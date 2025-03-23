@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MachinesController : MonoBehaviour
 {
@@ -74,14 +75,21 @@ public class MachinesController : MonoBehaviour
         RecipeDataContainer recipeData = GetRecipeDataContainer(machineState.Id, recipeId);
         _inventoryController.ChangeItemsState(recipeData.IngredientsToItemsStateChange());
         float timer = 0;
-        while(timer < recipeData.Time)
+        float time = recipeData.Time - _inventoryController.GetCurrentPerkValue(PerkType.TimeReduce);
+        while(timer < time)
         {
             timer += Time.deltaTime;
             yield return null;
-            machineState.UpdateProgress(timer /  recipeData.Time);
+            machineState.UpdateProgress(timer / time);
         }
 
-        _inventoryController.ChangeItemsState(recipeData.OutputToItemsStateChange());
+        float successRate = recipeData.SuccessRate + _inventoryController.GetCurrentPerkValue(PerkType.SuccessRateBonus);
+
+        bool success = Random.Range(1, 100) <= successRate * 100;
+        if (success)
+        {
+            _inventoryController.ChangeItemsState(recipeData.OutputToItemsStateChange());
+        }
 
         machineState.FinishWork();
     }

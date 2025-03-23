@@ -10,4 +10,5 @@ public class ItemData
     public string Name;
     public string Description;
     public Sprite Sprite;
+    public List<PerksDataContainer> Perks;
 }

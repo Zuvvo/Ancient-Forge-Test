@@ -70,7 +70,22 @@ public class InventoryController : MonoBehaviour
             return 0;
 
         return _inventoryState[id].Amount;
-        
+    }
+
+    public float GetCurrentPerkValue(PerkType perkType)
+    {
+        foreach (var kvp in _inventoryState)
+        {
+            if (kvp.Value.Amount > 0)
+            {
+                PerksDataContainer perkData = _itemsData.First(x => x.Id == kvp.Key)?.Perks.Find(x => x.PerkType == perkType);
+                if(perkData != null)
+                {
+                    return perkData.Value;
+                }
+            }
+        }
+        return 0;
     }
 
     public void ChangeItemsState(params ItemState[] items)
