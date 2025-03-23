@@ -64,6 +64,15 @@ public class InventoryController : MonoBehaviour
         return _itemsData.FirstOrDefault(item => item.Id == id);
     }
 
+    public int GetResourceCount(int id)
+    {
+        if (_inventoryState.ContainsKey(id) == false)
+            return 0;
+
+        return _inventoryState[id].Amount;
+        
+    }
+
     public void ChangeItemsState(params ItemState[] items)
     {
         for (int i = 0; i < items.Length; i++)

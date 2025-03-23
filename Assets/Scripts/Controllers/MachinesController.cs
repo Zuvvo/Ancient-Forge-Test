@@ -17,7 +17,7 @@ public class MachinesController : MonoBehaviour
         _machineDataContainers = Resources.LoadAll<MachineDataContainer>(_machinesPath);
 
         _uiScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Machines) as UiMachinesScreen;
-        _uiScreen.Setup(this, GetViewModels(_machineDataContainers));
+        _uiScreen.Setup(this, _inventoryController, GetViewModels(_machineDataContainers));
 
         UpdateMachineStates();
 
@@ -51,6 +51,21 @@ public class MachinesController : MonoBehaviour
         {
             StartCoroutine(RunMachine(machine, recipeId));
         }
+    }
+
+    public bool HasResourcesForRecipe(int machineId, int recipeId)
+    {
+        var data = GetRecipeDataContainer(machineId, recipeId);
+        for (int i = 0; i < data.Ingredients.Length; i++)
+        {
+            if (_inventoryController.GetResourceCount(data.Ingredients[i].ItemData.Id) <= 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 
     private IEnumerator RunMachine(MachineState machineState, int recipeId)

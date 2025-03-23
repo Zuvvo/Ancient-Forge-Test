@@ -15,9 +15,13 @@ public class UiMachine : MonoBehaviour
     private MachineViewModel _machineViewModel;
     private List<UiRecipe> _uiRecipes = new();
     private MachinesController _machinesController;
+    private InventoryController _inventoryController;
 
-    public void Setup(MachineViewModel machineViewModel, MachinesController machinesController)
+    public void Setup(MachineViewModel machineViewModel, MachinesController machinesController, InventoryController inventoryController)
     {
+        _machinesController = machinesController;
+        _inventoryController = inventoryController;
+
         for (int i = 0; i < machineViewModel.Recipes.Length; i++)
         {
             UiRecipe uiRecipe = Instantiate(_uiRecipePrefab, _recipesHolder);
@@ -28,10 +32,14 @@ public class UiMachine : MonoBehaviour
         _machineViewModel = machineViewModel;
         _machineViewModel.StateDataBinded.DataChanged += OnDataChanged;
         _machineViewModel.StateDataBinded.ProgressChanged += OnProgressChanged;
+        _inventoryController.OnItemStateChanged += OnItemStateChanged;
 
         _machineName.text = machineViewModel.Name;
+    }
 
-        _machinesController = machinesController;
+    private void OnItemStateChanged(ItemState state)
+    {
+        UpdateStartButtonsInteractableState();
     }
 
     public void OnRecipeStartClicked(int recipeIndex)
@@ -47,9 +55,16 @@ public class UiMachine : MonoBehaviour
     private void OnDataChanged()
     {
         gameObject.SetActive(_machineViewModel.StateDataBinded.IsUnlocked);
+        UpdateStartButtonsInteractableState();
+    }
+
+    private void UpdateStartButtonsInteractableState()
+    {
         for (int i = 0; i < _uiRecipes.Count; i++)
         {
-            _uiRecipes[i].SetButtonInteractableState(_machineViewModel.StateDataBinded.IsRunning == false);
+            bool isRunning = _machineViewModel.StateDataBinded.IsRunning;
+            bool hasEnoughResources = _machinesController.HasResourcesForRecipe(_machineViewModel.Id, _machineViewModel.Recipes[i].Id);
+            _uiRecipes[i].SetButtonInteractableState(isRunning == false && hasEnoughResources);
         }
     }
 
@@ -57,5 +72,6 @@ public class UiMachine : MonoBehaviour
     {
         _machineViewModel.StateDataBinded.DataChanged -= OnDataChanged;
         _machineViewModel.StateDataBinded.ProgressChanged -= OnProgressChanged;
+        _inventoryController.OnItemStateChanged -= OnItemStateChanged;
     }
 }

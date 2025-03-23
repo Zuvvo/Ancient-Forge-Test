@@ -17,5 +17,6 @@ public class UiItem : MonoBehaviour
     public void UpdateState(ItemState state)
     {
         _amountText.text = state.Amount.ToString();
+        gameObject.SetActive(state.Amount > 0);
     }
 }
