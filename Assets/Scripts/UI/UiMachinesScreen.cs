@@ -17,7 +17,7 @@ public class UiMachinesScreen : UiScreen
         for (int i = 0; i < machineViewModels.Length; i++)
         {
             UiMachine uiMachine = Instantiate(_uiMachinePrefab, _machinesHolder);
-            uiMachine.Setup(machineViewModels[i]);
+            uiMachine.Setup(machineViewModels[i], _machinesController);
             _uiMachines.Add(uiMachine);
         }
     }

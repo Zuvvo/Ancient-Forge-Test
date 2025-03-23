@@ -20,6 +20,12 @@ public class MachineState
         IsUnlocked = machineDataContainer.UnlockedByQuest == EQuest.None;
     }
 
+    public void StartMachine()
+    {
+        IsRunning = true;
+        DataChanged?.Invoke();
+    }
+
     public void UpdateProgress(float progress)
     {
         Progress = progress;

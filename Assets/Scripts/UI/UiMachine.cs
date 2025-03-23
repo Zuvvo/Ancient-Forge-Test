@@ -14,13 +14,14 @@ public class UiMachine : MonoBehaviour
 
     private MachineViewModel _machineViewModel;
     private List<UiRecipe> _uiRecipes = new();
+    private MachinesController _machinesController;
 
-    public void Setup(MachineViewModel machineViewModel)
+    public void Setup(MachineViewModel machineViewModel, MachinesController machinesController)
     {
         for (int i = 0; i < machineViewModel.Recipes.Length; i++)
         {
             UiRecipe uiRecipe = Instantiate(_uiRecipePrefab, _recipesHolder);
-            uiRecipe.Setup(machineViewModel.Recipes[i]);
+            uiRecipe.Setup(this, machineViewModel.Recipes[i]);
             _uiRecipes.Add(uiRecipe);
         }
 
@@ -29,6 +30,13 @@ public class UiMachine : MonoBehaviour
         _machineViewModel.StateDataBinded.ProgressChanged += OnProgressChanged;
 
         _machineName.text = machineViewModel.Name;
+
+        _machinesController = machinesController;
+    }
+
+    public void OnRecipeStartClicked(int recipeIndex)
+    {
+        _machinesController.StartMachine(_machineViewModel.Id, recipeIndex);
     }
 
     private void OnProgressChanged()
@@ -39,6 +47,10 @@ public class UiMachine : MonoBehaviour
     private void OnDataChanged()
     {
         gameObject.SetActive(_machineViewModel.StateDataBinded.IsUnlocked);
+        for (int i = 0; i < _uiRecipes.Count; i++)
+        {
+            _uiRecipes[i].SetButtonInteractableState(_machineViewModel.StateDataBinded.IsRunning == false);
+        }
     }
 
     private void OnDestroy()

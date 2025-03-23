@@ -42,4 +42,33 @@ public class MachinesController : MonoBehaviour
         }
         return viewModels;
     }
+
+    public void StartMachine(int machineId, int recipeId)
+    {
+        MachineState machine = _machineStates[machineId];
+        if(machine.IsUnlocked && machine.IsRunning == false)
+        {
+            StartCoroutine(RunMachine(machine, recipeId));
+        }
+    }
+
+    private IEnumerator RunMachine(MachineState machineState, int recipeId)
+    {
+        machineState.StartMachine();
+        RecipeDataContainer recipeData = GetRecipeDataContainer(machineState.Id, recipeId);
+        float timer = 0;
+        while(timer < recipeData.Time)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+            machineState.UpdateProgress(timer /  recipeData.Time);
+        }
+
+        machineState.UpdateState();
+    }
+
+    private RecipeDataContainer GetRecipeDataContainer(int machineId, int recipeId)
+    {
+        return _machineDataContainers[machineId].RecipesDataContainer[recipeId];
+    }
 }
