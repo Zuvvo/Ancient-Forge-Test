@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44125f2746cf0e46a55a550ecac9496, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
-  PerkType: 0
-  Value: 0
+  PerkType: 2
+  Value: 2

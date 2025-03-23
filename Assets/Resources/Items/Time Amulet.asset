@@ -18,3 +18,5 @@ MonoBehaviour:
     Name: Time Amulet
     Description: 
     Sprite: {fileID: 21300000, guid: b4579a24bbc27fc45ab2841b6cde9311, type: 3}
+    Perks:
+    - {fileID: 11400000, guid: b967e3419be1855418686f0e2dc7d38f, type: 2}

@@ -18,3 +18,5 @@ MonoBehaviour:
     Name: Lucky Charm
     Description: 
     Sprite: {fileID: 21300000, guid: 823abdc8dc7a4ea40a92447f789fd539, type: 3}
+    Perks:
+    - {fileID: 11400000, guid: d646ab22437446447bdad4f3f9c8a9c2, type: 2}

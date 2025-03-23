@@ -14,6 +14,7 @@ public class InventoryController : MonoBehaviour
 
     private Dictionary<int, ItemState> _inventoryState = new();
     private UiInventoryScreen _uiScreen;
+    private UiPerksScreen _uiPerksScreen;
     private ItemData[] _itemsData;
 
     private void Awake()
@@ -27,6 +28,9 @@ public class InventoryController : MonoBehaviour
 
         _uiScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Inventory) as UiInventoryScreen;
         _uiScreen.Setup(this);
+
+        _uiPerksScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Perks) as UiPerksScreen;
+        _uiPerksScreen.Setup(this);
 
         UpdateWholeInventory();
     }
