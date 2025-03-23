@@ -5,11 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class MachineViewModel
 {
+    public int Id { get; private set; }
     public string Name { get; private set; }
     public RecipeViewModel[] Recipes { get; private set; }
 
-    public MachineViewModel(MachineDataContainer dataContainer)
+    public MachineViewModel(MachineDataContainer dataContainer, int index)
     {
+        Id = index;
         Name = dataContainer.Name;
         Recipes = new RecipeViewModel[dataContainer.RecipesDataContainer.Length];
 

@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 0.392}
+  m_Color: {r: 0.14117648, g: 0.14117648, b: 0.14117648, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -94,6 +94,7 @@ MonoBehaviour:
   _progressImage: {fileID: 6759144302870669116}
   _uiRecipePrefab: {fileID: 6446038344819489889, guid: df650f9bc66f932428cc2bdc7fdae9a6, type: 3}
   _recipesHolder: {fileID: 5411041008727113726}
+  _machineName: {fileID: 2465907141047497056}
 --- !u!114 &6985145051109167593
 MonoBehaviour:
   m_ObjectHideFlags: 0

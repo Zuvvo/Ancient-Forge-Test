@@ -21,6 +21,11 @@ public class MachinesController : MonoBehaviour
 
     private MachineViewModel[] GetViewModels(MachineDataContainer[] machineDataContainers)
     {
-        return Array.ConvertAll(machineDataContainers, data => new MachineViewModel(data));
+        MachineViewModel[] viewModels = new MachineViewModel[machineDataContainers.Length];
+        for (int i = 0; i < machineDataContainers.Length; i++)
+        {
+            viewModels[i] = new MachineViewModel(machineDataContainers[i], i);
+        }
+        return viewModels;
     }
 }

@@ -7,6 +7,7 @@ public class UiRecipe : MonoBehaviour
     [SerializeField] private GameObject _plus;
     [SerializeField] private Image _secondItem;
     [SerializeField] private Image _outputItem;
+    [SerializeField] private Button _startButton;
     public void Setup(RecipeViewModel recipeViewModel)
     {
         _firstItem.sprite = recipeViewModel.Ingredients[0].Sprite;
@@ -20,5 +21,10 @@ public class UiRecipe : MonoBehaviour
             _secondItem.gameObject.SetActive(false);
         }
         _outputItem.sprite = recipeViewModel.Output.Sprite;
+    }
+
+    public void OnStartButtonClicked()
+    {
+
     }
 }
