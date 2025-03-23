@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0286c22c5509fa4b97f649fd5bbc989, type: 3}
   m_Name: Smelter
   m_EditorClassIdentifier: 
+  Name: Smelter
   RecipesDataContainer:
   - {fileID: 11400000, guid: 77395b48f5eb46347adc5d622f6e5d33, type: 2}
   - {fileID: 11400000, guid: 615552e433afdb540a77259b93603c24, type: 2}

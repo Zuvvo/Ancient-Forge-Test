@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MachinesController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private string _machinesPath;
+
+    private UiMachinesScreen _uiScreen;
+    private MachineDataContainer[] _machineDataContainers;
+
+    private void Awake()
     {
-        
+        _machineDataContainers = Resources.LoadAll<MachineDataContainer>(_machinesPath);
+
+        _uiScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Machines) as UiMachinesScreen;
+        _uiScreen.Setup(this, GetViewModels(_machineDataContainers));
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private MachineViewModel[] GetViewModels(MachineDataContainer[] machineDataContainers)
     {
-        
+        return Array.ConvertAll(machineDataContainers, data => new MachineViewModel(data));
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0286c22c5509fa4b97f649fd5bbc989, type: 3}
   m_Name: Rune Carver
   m_EditorClassIdentifier: 
+  Name: Rune Carver
   RecipesDataContainer:
   - {fileID: 11400000, guid: b80eb89fa7a39b84cb3e2005c7b6e102, type: 2}
   - {fileID: 11400000, guid: 259e86d38224c20458d001fb136502fb, type: 2}

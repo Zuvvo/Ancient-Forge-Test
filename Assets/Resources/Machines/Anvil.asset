@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0286c22c5509fa4b97f649fd5bbc989, type: 3}
   m_Name: Anvil
   m_EditorClassIdentifier: 
+  Name: Anvil
   RecipesDataContainer:
   - {fileID: 11400000, guid: 0755a65c84808a540976a10741d335b9, type: 2}
   - {fileID: 11400000, guid: 60ccd0f23c14854429dfd0a646734f8f, type: 2}
