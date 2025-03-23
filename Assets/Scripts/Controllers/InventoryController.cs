@@ -63,4 +63,20 @@ public class InventoryController : MonoBehaviour
     {
         return _itemsData.FirstOrDefault(item => item.Id == id);
     }
+
+    public void ChangeItemsState(params ItemState[] items)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            ItemState change = items[i];
+            if (_inventoryState.ContainsKey(change.Id) == false)
+            {
+                _inventoryState.Add(change.Id, new ItemState(change.Id, 0));
+            }
+            ItemState currentItemState = _inventoryState[change.Id];
+            ItemState newItemState =  new ItemState(currentItemState.Id, currentItemState.Amount + change.Amount);
+            _inventoryState[currentItemState.Id] = newItemState;
+            CallOnItemStateChanged(newItemState);
+        }
+    }
 }

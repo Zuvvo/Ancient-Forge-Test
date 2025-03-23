@@ -6,6 +6,7 @@ using UnityEngine;
 public class MachinesController : MonoBehaviour
 {
     [SerializeField] private string _machinesPath;
+    [SerializeField] private InventoryController _inventoryController;
 
     private UiMachinesScreen _uiScreen;
     private MachineDataContainer[] _machineDataContainers;
@@ -56,6 +57,7 @@ public class MachinesController : MonoBehaviour
     {
         machineState.StartMachine();
         RecipeDataContainer recipeData = GetRecipeDataContainer(machineState.Id, recipeId);
+        _inventoryController.ChangeItemsState(recipeData.IngredientsToItemsStateChange());
         float timer = 0;
         while(timer < recipeData.Time)
         {
@@ -64,7 +66,9 @@ public class MachinesController : MonoBehaviour
             machineState.UpdateProgress(timer /  recipeData.Time);
         }
 
-        machineState.UpdateState();
+        _inventoryController.ChangeItemsState(recipeData.OutputToItemsStateChange());
+
+        machineState.FinishWork();
     }
 
     private RecipeDataContainer GetRecipeDataContainer(int machineId, int recipeId)
