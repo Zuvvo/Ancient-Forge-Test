@@ -8,4 +8,5 @@ public enum EScreenType
     Inventory,
     Machines,
     Perks,
+    Quests,
 }

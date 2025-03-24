@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class QuestRequirement
+public class QuestState
 {
-    public ItemDataContainer DataContainer;
-    public int Amount;
+    public EQuest Quest;
+    public float Progress;
 }

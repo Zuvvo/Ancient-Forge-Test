@@ -45,4 +45,10 @@ public class MachineState
         DataChanged?.Invoke();
         ProgressChanged?.Invoke();
     }
+
+    public void Unlock()
+    {
+        IsUnlocked = true;
+        DataChanged?.Invoke();
+    }
 }

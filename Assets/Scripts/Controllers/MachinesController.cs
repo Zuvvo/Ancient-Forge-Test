@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,7 @@ public class MachinesController : MonoBehaviour
 {
     [SerializeField] private string _machinesPath;
     [SerializeField] private InventoryController _inventoryController;
+    [SerializeField] private QuestsController _questController;
 
     private UiMachinesScreen _uiScreen;
     private MachineDataContainer[] _machineDataContainers;
@@ -20,8 +22,15 @@ public class MachinesController : MonoBehaviour
         _uiScreen = _UiManager.Instance.GetScreenRefOfType(EScreenType.Machines) as UiMachinesScreen;
         _uiScreen.Setup(this, _inventoryController, GetViewModels(_machineDataContainers));
 
+        _questController.OnQuestStateChanged += OnQuestStateChanged;
+
         UpdateMachineStates();
 
+    }
+
+    private void OnDestroy()
+    {
+        _questController.OnQuestStateChanged -= OnQuestStateChanged;
     }
 
     private void UpdateMachineStates()
@@ -92,6 +101,17 @@ public class MachinesController : MonoBehaviour
         }
 
         machineState.FinishWork();
+    }
+
+    private void OnQuestStateChanged(QuestState state)
+    {
+        for (int i = 0; i < _machineDataContainers.Length; i++)
+        {
+            if(_machineDataContainers[i].UnlockedByQuest == state.Quest && _questController.IsQuestCompleted(state.Quest) && _machineStates[i].IsUnlocked == false)
+            {
+                _machineStates[i].Unlock();
+            }
+        }
     }
 
     private RecipeDataContainer GetRecipeDataContainer(int machineId, int recipeId)
