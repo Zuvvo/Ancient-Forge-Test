@@ -1334,6 +1334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _machinesPath: Machines
   _inventoryController: {fileID: 604845693}
+  _questController: {fileID: 743041112}
 --- !u!1 &743041110
 GameObject:
   m_ObjectHideFlags: 0
